@@ -10,30 +10,21 @@ public class MaximumSequence {
 		this.array = array;
 	}
 
-	public int sequencer() {
+	public int getHighestSeqSum() {
 		int highestSeq = 0;
-		int intermediate = 0;
+		int tempSeq = 0;
 		if (array.length > 0) {
-			highestSeq = intermediate = array[0];
+			highestSeq = tempSeq = array[0];
 		}
 		for (int i = 1; i < array.length; i++) {
-			System.out.println("*****************************");
 			int curr = array[i];
-			int update = intermediate + curr;
-			if (curr > update) {
-				intermediate = curr;
-				System.out.println("MaximumSequence.sequencer() IF");
-			} else {
-				intermediate = update;
-			}
+			int update = tempSeq + curr;
+			
+			tempSeq = curr > update ? curr : update;
 
-			if (highestSeq < intermediate) {
-				highestSeq = intermediate;
+			if (highestSeq < tempSeq) {
+				highestSeq = tempSeq;
 			}
-			System.out.println("MaximumSequence.sequencer() intermediate = "
-					+ intermediate);
-			System.out.println("MaximumSequence.sequencer() highestSeq = "
-					+ highestSeq);
 		}
 		return highestSeq;
 	}
@@ -66,6 +57,12 @@ public class MaximumSequence {
 		int[] array5 = { 1, 2, 3, 4, 5 };
 		int[] array6 = { 100, -100, -200, 200, 1000 };
 		int[] array7 = { 0, -0, -0, 0, 1000 };
+		int[] array8 = { 10, 4, -20, 18, 3, 19, -100, 3 };
+		int[] array9 = { 3, 5, 10, -8, 20, 10, 30, -100, 1, 10 };
+		int[] array10 = { -10, -9, -4, -5, -15 };
+		int[] array11 = { -10, -1, -1, -1, -15 };
+		int[] array12 = { -10, -1, -1, -1, 3 };
+
 		list.add(new Data(array1, 100));
 		list.add(new Data(array2, 260));
 		list.add(new Data(array3, -1));
@@ -73,22 +70,23 @@ public class MaximumSequence {
 		list.add(new Data(array5, 15));
 		list.add(new Data(array6, 1200));
 		list.add(new Data(array7, 1000));
+		list.add(new Data(array8, 40));
+		list.add(new Data(array9, 70));
+		list.add(new Data(array10, -4));
+		list.add(new Data(array11, -1));
+		list.add(new Data(array12, 3));
 
 		for (int i = 0; i < list.size(); i++) {
-			System.out
-					.println("++++++++++++START TEST+++++++++++++++++++++++++++");
+			System.out.println("++++++++++++START TEST+++++++++++++++++++++++++++");
 			Data data = list.get(i);
-			MaximumSequence maximumSequence = new MaximumSequence(data
-					.getArray());
-			int x = maximumSequence.sequencer();
-			if (x == data.getResult()) {
-				System.out.println("TEST" + i + "PASSED!!!!!"
-						+ "Highest sequence is = " + x);
+			MaximumSequence maximumSequence = new MaximumSequence(data.getArray());
+			int res = maximumSequence.getHighestSeqSum();
+			if (res == data.getResult()) {
+				System.out.println("TEST" + i + "PASSED!!!!! " + "Highest sequence is = " + res);
 			} else {
 				throw new Exception("TEST" + i + "FAILED!!!!!");
 			}
-			System.out
-					.println("++++++++++++END TEST+++++++++++++++++++++++++++");
+			System.out.println("++++++++++++END TEST+++++++++++++++++++++++++++");
 
 		}
 	}
